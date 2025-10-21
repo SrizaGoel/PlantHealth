@@ -1,7 +1,0 @@
-com\example\planthealth\service\PlantService$MLResponse.class
-com\example\planthealth\ml\DiseasePredictor.class
-com\example\planthealth\controller\PlantController.class
-com\example\planthealth\model\Plant.class
-com\example\planthealth\service\PlantService.class
-com\example\planthealth\PlantHealthApplication.class
-com\example\planthealth\repository\PlantRepository.class
