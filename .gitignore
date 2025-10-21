@@ -1,7 +1,24 @@
-"target/" 
-"*.jar" 
-"*.dll" 
-"*.mp4" 
-"*.zip" 
-"*.exe" 
-"*.h5" 
+# Build output
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+
+# Logs and temp files
+*.log
+.DS_Store
+Thumbs.db
+
+# ML models / large files
+*.zip
+*.bin
+*.model
+*.h5
+*.pt
+*.weights
