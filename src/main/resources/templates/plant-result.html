@@ -1,0 +1,184 @@
+<!--
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Plant Analysis Result</title>
+    <style>
+        .result-card { border: 2px solid #4CAF50; padding: 20px; margin: 20px; border-radius: 10px; }
+        .healthy { color: green; }
+        .diseased { color: red; }
+        .warning { color: orange; }
+        img { max-width: 300px; border: 1px solid #ddd; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🌿 Plant Analysis Result</h1>
+    
+    <div th:if="${plant}" class="result-card">
+        <h2 th:text="'Plant: ' + ${plant.name}"></h2>
+        <p><strong>Type:</strong> <span th:text="${plant.type}"></span></p>
+        <p><strong>Health Status:</strong> 
+            <span th:text="${plant.healthStatus}" 
+                  th:class="${plant.healthStatus?.toLowerCase()}"></span>
+        </p>
+        <p><strong>Confidence:</strong> <span th:text="${plant.confidenceScore}"></span></p>
+        -->
+        <!-- Show analysis message -->
+         <!--
+        <div th:if="${plant.healthStatus != null}">
+            <p th:if="${plant.healthStatus == 'Healthy'}" style="color: green;">
+                ✅ Your plant appears to be healthy!
+            </p>
+            <p th:if="${plant.healthStatus == 'Diseased'}" style="color: red;">
+                ⚠️ Your plant may have a disease. Consider consulting a specialist.
+            </p>
+            <p th:if="${plant.healthStatus == 'Warning'}" style="color: orange;">
+                🔍 Your plant needs attention. Monitor it closely.
+            </p>
+        </div>
+    </div>
+
+    <div th:if="${error}">
+        <h3 style="color: red;">Error:</h3>
+        <p th:text="${error}"></p>
+    </div>
+
+    <a href="/" style="display: inline-block; margin-top: 20px; padding: 10px 20px; 
+                      background: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">
+        🔄 Analyze Another Plant
+    </a>
+    -->
+    <!-- Debug info -->
+     <!--
+    <div style="margin-top: 50px; color: gray; font-size: 12px; border-top: 1px solid #ccc; padding-top: 20px;">
+        <h4>Debug Info:</h4>
+        <p th:text="'Health Status: ' + ${plant?.healthStatus}"></p>
+        <p th:text="'Confidence: ' + ${plant?.confidenceScore}"></p>
+        <p th:text="'Image Path: ' + ${plant?.imagePath}"></p>
+    </div>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Plant Analysis Result</title>
+    <style>
+        .result-card { 
+            border: 2px solid #4CAF50; 
+            padding: 20px; 
+            margin: 20px; 
+            border-radius: 10px; 
+            background: #f9f9f9;
+        }
+        .ar-container {
+            border: 2px dashed #4CAF50;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            background: white;
+        }
+        .healthy { color: green; }
+        .diseased { color: red; }
+        .warning { color: orange; }
+        .ar-image {
+            max-width: 400px;
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .status-indicator {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .status-healthy { background: #d4edda; color: #155724; }
+        .status-diseased { background: #f8d7da; color: #721c24; }
+        .status-warning { background: #fff3cd; color: #856404; }
+    </style>
+</head>
+<body>
+    <h1>🌿 Plant Analysis Result</h1>
+    
+    <div th:if="${plant}" class="result-card">
+        <h2 th:text="'Plant: ' + ${plant.name}"></h2>
+        <p><strong>Type:</strong> <span th:text="${plant.type}"></span></p>
+        <p><strong>Health Status:</strong> 
+            <span th:text="${plant.healthStatus}" 
+                  th:class="'status-indicator status-' + ${plant.healthStatus?.toLowerCase()}"></span>
+        </p>
+        <p><strong>Confidence Score:</strong> <span th:text="${plant.confidenceScore}"></span></p>
+        
+        <!-- Show analysis message -->
+        <div th:if="${plant.healthStatus != null}">
+            <p th:if="${plant.healthStatus == 'Healthy'}" style="color: green; font-weight: bold;">
+                ✅ Excellent! Your plant appears to be in great health!
+            </p>
+            <p th:if="${plant.healthStatus == 'Diseased'}" style="color: red; font-weight: bold;">
+                ⚠️ Attention needed! Your plant may have a disease. Consider consulting a plant specialist.
+            </p>
+            <p th:if="${plant.healthStatus == 'Warning'}" style="color: orange; font-weight: bold;">
+                🔍 Monitor closely! Your plant shows early warning signs.
+            </p>
+        </div>
+
+        <!-- 3D AR Overlay Section -->
+        <div class="ar-container" th:if="${arImage != null}">
+            <h3>🔄 3D Augmented Reality Overlay</h3>
+            <p>This 3D visualization represents your plant's health status in an AR-compatible format:</p>
+            <img th:src="'data:image/png;base64,' + ${arImage}" 
+                 alt="3D AR Health Overlay" 
+                 class="ar-image">
+            <p><em>In augmented reality, this 3D box would appear overlaid on your plant</em></p>
+            
+            <!-- Direct AR link -->
+            <div style="margin-top: 15px;">
+                <a th:href="@{/plant/ar/{name}/{status}(name=${plant.name}, status=${plant.healthStatus})}" 
+                   target="_blank"
+                   style="display: inline-block; padding: 10px 15px; background: #2196F3; color: white; 
+                          text-decoration: none; border-radius: 5px;">
+                    🔗 Open AR View in New Tab
+                </a>
+            </div>
+        </div>
+
+        <div th:if="${arImage == null}">
+            <p style="color: orange;">⚠️ AR visualization could not be generated</p>
+        </div>
+
+        <!-- Show uploaded image info -->
+        <div th:if="${plant.imagePath}" style="margin-top: 20px; padding: 10px; background: #e9ecef; border-radius: 5px;">
+            <h4>📷 Image Analysis Details:</h4>
+            <p><strong>Processed Image:</strong> <span th:text="${plant.imagePath}"></span></p>
+        </div>
+    </div>
+
+    <div th:if="${error}">
+        <h3 style="color: red;">Error:</h3>
+        <p th:text="${error}"></p>
+    </div>
+
+    <div style="margin-top: 30px;">
+        <a href="/" style="display: inline-block; padding: 12px 24px; 
+                          background: #4CAF50; color: white; text-decoration: none; border-radius: 5px; margin-right: 10px;">
+            🔄 Analyze Another Plant
+        </a>
+        
+        <a th:if="${plant}" th:href="@{/plant/ar/{name}/{status}(name=${plant.name}, status=${plant.healthStatus})}" 
+           target="_blank"
+           style="display: inline-block; padding: 12px 24px; 
+                  background: #2196F3; color: white; text-decoration: none; border-radius: 5px;">
+            🎨 Standalone AR View
+        </a>
+    </div>
+    
+    <!-- Debug info -->
+    <div style="margin-top: 50px; color: gray; font-size: 12px; border-top: 1px solid #ccc; padding-top: 20px;">
+        <h4>Debug Info:</h4>
+        <p th:text="'Health Status: ' + ${plant?.healthStatus}"></p>
+        <p th:text="'Confidence: ' + ${plant?.confidenceScore}"></p>
+        <p th:text="'3D AR Generated: ' + ${arImage != null}"></p>
+        <p th:text="'Image Path: ' + ${plant?.imagePath}"></p>
+    </div>
+</body>
+</html>
