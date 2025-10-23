@@ -1,3 +1,4 @@
+<!--
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -40,5 +41,79 @@
         </div>
     </div>
 </div>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Health Analysis</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+        <div class="container">
+            <a class="navbar-brand" href="/">🌱 Plant Health AI</a>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0">Plant Health Analysis</h3>
+                    </div>
+                    <div class="card-body">
+                        <!-- Error Display -->
+                        <div th:if="${error}" class="alert alert-danger">
+                            <strong>Error:</strong> <span th:text="${error}"></span>
+                        </div>
+
+                        <!-- Upload Form -->
+                        <form method="POST" action="/api/plant/analyze" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label class="form-label">Plant Name</label>
+                                <input type="text" name="name" class="form-control" placeholder="Enter plant name" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Plant Type</label>
+                                <input type="text" name="type" class="form-control" placeholder="Enter plant type" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label">Plant Image</label>
+                                <input type="file" name="image" class="form-control" accept="image/*" required>
+                                <div class="form-text">Upload a clear image of plant leaves</div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-success w-100">
+                                🔍 Analyze Plant Health
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Quick Analysis Option -->
+                <div class="card mt-4">
+                    <div class="card-body">
+                        <h5>Quick Analysis</h5>
+                        <p class="text-muted">Just upload an image without plant details</p>
+                        <form method="POST" action="/analyze-plant" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <input type="file" name="plantImage" class="form-control" accept="image/*" required>
+                            </div>
+                            <button type="submit" class="btn btn-outline-primary w-100">
+                                🚀 Quick Analyze
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

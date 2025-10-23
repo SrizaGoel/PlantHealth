@@ -22,3 +22,45 @@ Thumbs.db
 *.h5
 *.pt
 *.weights
+
+
+
+
+
+# Java
+target/
+*.jar
+*.war
+*.ear
+*.class
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# Model files (if large)
+*.h5
+*.pkl
+*.model
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+temp_uploads/
