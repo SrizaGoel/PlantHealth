@@ -45,7 +45,6 @@ venv/
 .venv/
 
 # Model files (if large)
-*.h5
 *.pkl
 *.model
 
